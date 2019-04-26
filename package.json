@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "Disney Parent app ",
   "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "start": "index.js",
+    "test": "jest --watch"
+  },
   "repository": "https://github.com/disneyparent-pt-042219/build-disneyparent-BE.git",
   "author": "erscriber <erscriber@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "jest": "^24.7.1",
     "nodemon": "^1.18.11"
   },
   "dependencies": {
