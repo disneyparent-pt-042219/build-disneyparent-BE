@@ -21,3 +21,14 @@ function findBy(filter) {
     return db('parents').where(filter);
 }
 
+function update(id, changes) {
+    return db('parents')
+        .where({ id })
+        .update(changes, '*');
+}
+
+function remove(id) {
+    return db('parents')
+        .where({ id })
+        .del();
+}
