@@ -3,7 +3,7 @@ const db = require('../dbConfig.js');
 module.exports = {
     get,
     getByUsername,
-    getParentPosts,
+    getFamilyPosts,
     add,
     update,
     remove,
@@ -20,7 +20,7 @@ function getByUsername(username) {
     return userId;
 }
 
-function getUserPosts(username) {
+function getFamilyPosts(username) {
     return db('posts as p')
         .join('family as f', 'f.username', 'p.family_username')
         .select('p.id', 'p.text', 'f.username as postedBy')
@@ -33,14 +33,14 @@ function add(family) {
         .then();
 }
 
-function update(id, changes) {
+function update(username, changes) {
     return db('family')
-        .where({ id })
+        .where({ username })
         .update(changes);
 }
 
-function remove(id) {
+function remove(username) {
     return db('family')
-        .where('id', id )
+        .where('username', username )
         .del();
 }
