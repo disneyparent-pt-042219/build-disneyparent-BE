@@ -12,7 +12,7 @@ router.get('/families', async (req, res) => {
     catch (err) {
         res 
             .status(500)
-            .json({ error: "A listing of families cannot be retreived at this time." });
+            .json({ err: "A listing of families cannot be retreived at this time." });
     }
 });
 
@@ -45,7 +45,7 @@ router.post('/register', async (req, res) => {
             const family = await familyDb.add({ username });
             res 
                 .status(201)
-                .json({ message: `Welcome to Disney Parent ${username} family!` });
+                .json({ message: `Welcome to Disney Parent ${family} family!` });
         }
         else {
             res
@@ -56,7 +56,7 @@ router.post('/register', async (req, res) => {
     catch (err) {
         res
             .status(500)
-            .json({ message: "There was an error while saving your family to our database." });
+            .json({ err: "There was an error while saving your family to our database." });
     }
 
 });
@@ -70,7 +70,7 @@ router.put('/:username', async (req, res) => {
             if (family) {
                 res
                     .status(200)
-                    .json({ message: `${username} family, your account has been updated!` });
+                    .json({ message: `${family} family, your account has been updated!` });
             }
             else {
                 res
@@ -81,12 +81,53 @@ router.put('/:username', async (req, res) => {
         else {
             res
                 .status(400)
-                .json({ message: "Please provide username and update for this account. "});
+                .json({ message: "Please provide username and update for this account." });
         }
     }
     catch (err) {
         res
             .status(500)
-            .json({ message: "Your account cannot be modified at this time. "});
+            .json({ err: "Your account cannot be modified at this time." });
+    }
+});
+
+router.delete('/:username', async (req, res) => {
+    try {
+        const family = await familyDb.remove(req.params.username);
+        if(family) {
+            res
+                .json({ message: `Sorry to see you go ${family} family!` });
+        }
+        else {
+            res
+                .status(404)
+                .json({ message: 'The family with specified username does not exist.' });
+        }
+    }
+    catch (err) {
+        res
+            .status(500)
+            .json({ err: 'The requested family account cannot be removed at this time.' });
+    }
+});
+
+// Listing of posts by family
+router.get('/:username/post', async (req, res) => {
+    try {
+        const familyPosts = await familyDb.getFamilyPosts(req.params.username);
+        if (familyPosts) {
+            res
+                .json(familyPosts);
+        }
+        else {
+            res
+                .status(400)
+                .json({ message: 'No posts from this family.' });
+        }
+    }
+    catch (err) {
+        res
+            .status(500)
+            .json({ err: 'Posts cannot be retreived at this time.' });
     }
 });
