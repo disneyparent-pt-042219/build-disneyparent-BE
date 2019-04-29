@@ -1,5 +1,6 @@
 const express = require('express');
 const familyDb = require('./helpers/familyDb.js');
+const postDb = require('./helpers/postDb.js');
 const router = express.Router();
 
 // Gets listing of all families 
@@ -56,7 +57,7 @@ router.post('/register', async(req, res) => {
 
 });
 
-// Updates a family listing
+// Updates a family account
 router.put('/:username', async(req, res) => {
     const { username } = req.params.username;
     try {
@@ -83,10 +84,15 @@ router.put('/:username', async(req, res) => {
     }
 });
 
+
+// Deletes a family account
 router.delete('/:username', async(req, res) => {
+    const { username } = req.params;
     try {
-        const family = await familyDb.remove(req.params.username);
+        const family = await familyDb.getByUsername(req.params.username);
         if (family) {
+            await postDb.removeByUser(id);
+            await familyDb.remove({ username });
             res
                 .json({ message: `Sorry to see you go ${family} family!` });
         } else {
