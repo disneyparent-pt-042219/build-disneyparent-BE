@@ -1,15 +1,15 @@
 const express = require('express');
-const helmet = require('helmet');
-const cors = require('cors');
 
+const configMiddleware = require('./middleware.js');
+const authRouter = require('../auth/authRouter.js');
 const familyRouter = require('../database/familyRouter.js');
 const postsRouter = require('../database/postsRouter.js');
 
 const server = express();
 
-server.use(express.json(), helmet());
-server.use(cors());
+configMiddleware(server);
 
+server.use('/auth', authRouter);
 server.use('/families', familyRouter);
 server.use('/posts', postsRouter);
 
