@@ -3,9 +3,12 @@ exports.up = function(knex, Promise) {
         .createTable('family', function(family) {
             family.increments();
             family
-                .string('username')
+                .string('username', 128)
                 .notNullable()
                 .unique();
+            family
+                .string('password', 128)
+                .notNullable();
         })
 
     .createTable('posts', function(posts) {

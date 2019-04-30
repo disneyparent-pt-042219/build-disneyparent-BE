@@ -35,28 +35,6 @@ router.get('/:username', async(req, res) => {
     }
 });
 
-// Adds new family to listing
-router.post('/register', async(req, res) => {
-    const { username } = req.body;
-    try {
-        if (username) {
-            const family = await familyDb.add({ username });
-            res
-                .status(201)
-                .json({ message: `Welcome to Disney Parent ${family} family!` });
-        } else {
-            res
-                .status(404)
-                .json({ message: "Please enter a username for your account." });
-        }
-    } catch (err) {
-        res
-            .status(500)
-            .json({ err: "There was an error while saving your family to our database." });
-    }
-
-});
-
 // Updates a family account
 router.put('/:username', async(req, res) => {
     const { username } = req.params.username;
