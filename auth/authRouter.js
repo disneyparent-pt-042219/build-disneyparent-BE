@@ -50,7 +50,7 @@ router.post('/login', (req, res) => {
                 res
                     .status(200)
                     .json({
-                        message: `Welcome ${user.username}!`,
+                        message: `Welcome back ${user.username}!`,
                         token,
                         roles: token.roles,
                     });

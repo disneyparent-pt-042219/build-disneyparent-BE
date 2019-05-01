@@ -39,14 +39,14 @@ function add(user) {
     return getById(id);
 }
 
-function update(username, changes) {
+function update(id, change) {
     return db('family')
-        .where({ username })
-        .update(changes);
+        .where('id', id)
+        .update(change);
 }
 
-function remove(username) {
+function remove(id) {
     return db('family')
-        .where('username', username )
+        .where('id', id )
         .del();
 }
