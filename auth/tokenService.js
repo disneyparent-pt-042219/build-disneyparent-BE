@@ -10,7 +10,7 @@ function generateToken(family) {
     const payload = {
         subject: family.id,
         username: family.username,
-        roles: ['Family']
+        roles: ['Family'],
     };
 
     const options = {
