@@ -35,7 +35,7 @@ router.get('/:id', async(req, res) => {
 });
 
 // Adds new family post
-router.put('/', async(req, res) => {
+router.post('/', async(req, res) => {
     if (!req.body.text || req.body.text === '' || !req.body.user_id) {
         res
             .status(400)
