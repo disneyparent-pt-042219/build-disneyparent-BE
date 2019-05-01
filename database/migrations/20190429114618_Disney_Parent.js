@@ -11,7 +11,7 @@ exports.up = function(knex, Promise) {
                 .notNullable();
         })
 
-    .createTable('posts', function(posts) {
+    /*.createTable('posts', function(posts) {
         posts.increments();
         posts
             .text('text')
@@ -22,9 +22,9 @@ exports.up = function(knex, Promise) {
             .notNullable()
             .references('username')
             .inTable('family');
-    });
+    });*/
 };
 
 exports.down = function(knex, Promise) {
-    return knex.schema.dropTableIfExists('posts').dropTableIfExists('family');
+    return knex.schema.dropTableIfExists('family');
 };

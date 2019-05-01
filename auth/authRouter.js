@@ -1,41 +1,56 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
+const db = require('../database/dbConfig');
 
 const tokenService = require('./tokenService.js');
-const family = require('../database/helpers/familyDb.js');
+const family = require('../database/helpers/familyDb');
+
 
 // Adds new family to listing
-router.post('/register', (req, res) => {
-    let { username, password } = req.body;
-    const hash = bcrypt.hashSync(family.password, 10);
-    family.password = hash;
+router.post('/register', async (req, res) => {
+    let user = req.body;
+    const hash = bcrypt.hashSync(user.password, 10);
+    user.password = hash;
+    console.log(user);
 
-    family.add({ username, password })
-        .then(saved => {
+    try {
+        const fam = await db('family').insert(req.body);
+        if (fam) {
+            const token = tokenService.generateToken(fam);
             res
-                .status(201)
-                .json({ message: 'Welcome to Disney Parent!' });
-        })
-        .catch(error => {
-            res
-                .status(500)
-                .json({ message: 'Your family account could not be added at this time.' });
-        });
+                .status(200)
+                .json({ 
+                    message: 'Welcome to Disney Parent!',
+                    token
+                 }); 
+        }
+        else {
+            res 
+                .status(404)
+                .json(err);
+        }
+    }
+    catch (err) {
+        res
+            .status(500)
+            .json(err);
+    }
 });
 
 // Logs into current family account
 router.post('/login', (req, res) => {
     let { username, password } = req.body;
 
-    family.getByUsername({ username })
+    family
+        .getBy({ username })
         .first()
-        .then(family => {
-            if (family && bcrypt.compareSync(password, family.password)) {
-                const token = tokenService.generateToken(family);
+        .then(user => {
+            if (user && bcrypt.compareSync(password, user.password)) {
+                const token = tokenService.generateToken(user);
                 res
                     .status(200)
                     .json({
-                        message: `Welcome ${family.username}!`,
+                        message: `Welcome ${user.username}!`,
                         token,
                         roles: token.roles,
                     });

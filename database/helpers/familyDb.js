@@ -1,8 +1,9 @@
-const db = require('../dbConfig.js');
+const db = require('../dbConfig');
 
 module.exports = {
     get,
-    getByUsername,
+    getBy,
+    getById,
     getFamilyPosts,
     add,
     update,
@@ -13,11 +14,15 @@ function get() {
     return db('family');
 }
 
-function getByUsername(username) {
-    const userId = db('family')
-        .where()
-        .first()
-    return userId;
+function getBy(filter) {
+    return db('family').where(filter);
+}
+
+function getById(id) {
+    return db('family')
+        .select('id', 'username')
+        .where({ id })
+        .first();
 }
 
 function getFamilyPosts(username) {
@@ -27,10 +32,11 @@ function getFamilyPosts(username) {
         .where('p.family_username', username);
 }
 
-function add(family) {
-    return db('family')
-        .insert(family)
-        .then();
+function add(user) {
+    const [id] = db('family')
+        .insert(user);
+
+    return getById(id);
 }
 
 function update(username, changes) {
