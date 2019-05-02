@@ -13,7 +13,7 @@ router.get('/', async(req, res) => {
     try {
         const families = await familyDb.get();
         res
-            .json(families);
+            .json(families.username);
     } 
     catch (err) {
         res
