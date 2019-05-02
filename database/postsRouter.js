@@ -36,13 +36,13 @@ router.get('/:id', async(req, res) => {
 
 // Adds new family post
 router.post('/', async(req, res) => {
-    if (!req.body.text || req.body.text === '' || !req.body.user_id) {
+    if (!req.body.text || req.body.text === '' || !req.body.family_id) {
         res
             .status(400)
             .json({ message: "please provide valid text and user id" });
     }
     try {
-        const posts = await postDb.add({ text: req.body.text, user_id: req.body.user_id });
+        const posts = await postDb.add({ text: req.body.text, family_id: req.body.family_id });
         res
             .json(posts);
     } catch (err) {

@@ -14,10 +14,7 @@ exports.up = function(knex, Promise) {
             posts
                 .text('attraction', 128)
                 .notNullable();    
-        
-            posts
-                .
-                           
+
             posts
                 .integer('number of children')
                 .notNullable();
