@@ -4,6 +4,7 @@ module.exports = {
     get,
     getPost,
     getPostComment,
+    getPostByFamily,
     add,
     update,
     remove,
@@ -31,6 +32,19 @@ function getPostComment(id) {
     return db('comments')
         .select('comment')
         .where('post_id', id);
+}
+
+function getPostByFamily(familyId) {
+    return db('posts')
+        .select(
+            'id', 
+            'attraction',
+            'num_of_children',
+            'meetup_time',
+            'meetup_date',
+            'message',
+        )
+        .where('family_id', familyId);
 }
 
 function add(post) {

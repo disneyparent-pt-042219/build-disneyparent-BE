@@ -1,7 +1,7 @@
 module.exports = [
     { 
-        username: "seeds", 
-        password: "seeds1",
+        username: "parent1", 
+        password: "pass1",
     }
 
 ];
