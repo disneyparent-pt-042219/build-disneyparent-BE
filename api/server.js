@@ -2,8 +2,8 @@ const express = require('express');
 
 const configMiddleware = require('./middleware.js');
 const authRouter = require('../auth/authRouter.js');
-const familyRouter = require('../database/routers/familyRouter');
-const postsRouter = require('../database/routers/postsRouter');
+const familyRouter = require('../routers/familyRouter');
+const postsRouter = require('../routers/postsRouter');
 
 const server = express();
 

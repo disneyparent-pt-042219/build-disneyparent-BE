@@ -2,7 +2,8 @@ const db = require('../dbConfig.js');
 
 module.exports = {
     get,
-    getById,
+    getPost,
+    getPostComment,
     add,
     update,
     remove,
@@ -13,10 +14,23 @@ function get() {
     return db('posts');
 }
 
-function getById(id) {
+function getPost(id) {
     return db('posts')
-        .where({ id })
-        .first();
+        .select(
+            'id',
+            'attraction',
+            'num_of_children',
+            'meetup_time',
+            'meetup_date',
+            'message',
+        )
+        .where('id', id);
+}
+
+function getPostComment(id) {
+    return db('comments')
+        .select('comment')
+        .where('post_id', id);
 }
 
 function add(post) {

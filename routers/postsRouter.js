@@ -1,5 +1,5 @@
 const express = require('express');
-const postDb = require('./helpers/postDb.js');
+const postDb = require('../database/helpers/postDb');
 const router = express.Router();
 
 // Gets listing of all posts
@@ -15,10 +15,10 @@ router.get('/', async(req, res) => {
     }
 });
 
-// Gets listing by Id
+// Gets listing by Id with comments
 router.get('/:id', async(req, res) => {
     try {
-        const posts = await postDb.getById(req.params.id);
+        const posts = await postDb.getPostComment(req.params.id);
         if (posts) {
             res
                 .json(posts);

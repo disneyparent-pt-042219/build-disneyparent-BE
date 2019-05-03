@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const familyDb = require('./helpers/familyDb.js');
-const postDb = require('./helpers/postDb.js');
+const familyDb = require('../database/helpers/familyDb');
+const postDb = require('../database/helpers/postDb');
 
 const restricted = require('../auth/restricted');
 const auth = require('../auth/checkAuth');
