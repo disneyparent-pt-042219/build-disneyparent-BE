@@ -36,13 +36,19 @@ router.get('/:id', async(req, res) => {
 
 // Adds new family post
 router.post('/', async(req, res) => {
-    if (!req.body.text || req.body.text === '' || !req.body.family_id) {
+    const { family_id, 
+            attraction,
+            num_of_children,
+            meetup_time,
+            meetup_date, 
+            message } = req.body
+    if (!family_id || !attraction || !num_of_children || !meetup_time || !meetup_date || !message)  {
         res
             .status(400)
-            .json({ message: "please provide valid text and user id" });
+            .json({ message: "Please provide missing information" });
     }
     try {
-        const posts = await postDb.add({ text: req.body.text, family_id: req.body.family_id });
+        const posts = await postDb.add(req.body);
         res
             .json(posts);
     } catch (err) {
@@ -60,7 +66,7 @@ router.put('/:id', async(req, res) => {
             if (updatePost) {
                 res
                     .status(200)
-                    .json(updatePost);
+                    .json({ message: "Your post has been successfully updated!" });
             } else {
                 res
                     .status(404)

@@ -12,8 +12,10 @@ const auth = require('../auth/checkAuth');
 router.get('/', async(req, res) => {
     try {
         const families = await familyDb.get();
-        res
-            .json(families);
+        if(families) {
+            res
+                .json(families);
+        }
     } 
     catch (err) {
         res
@@ -46,7 +48,7 @@ router.get('/:id', async(req, res) => {
 
 // Updates a family account
 router.put('/:id', (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
     const updatedFamily = req.body;
 
     familyDb
@@ -79,7 +81,8 @@ router.delete('/:id', async (req, res) => {
         if (family) {
             res
                 .json({ message: `Sorry to see you go ${user.username} family!` });
-        } else {
+        } 
+        else {
             res
                 .status(404)
                 .json({ message: 'The family with specified username does not exist.' });
