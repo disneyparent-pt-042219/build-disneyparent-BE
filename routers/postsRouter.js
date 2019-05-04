@@ -36,13 +36,15 @@ router.get('/:id', async(req, res) => {
 
 // Adds new family post
 router.post('/', async(req, res) => {
-    const { family_id, 
-            attraction,
-            num_of_children,
-            meetup_time,
-            meetup_date, 
-            message } = req.body
-    if (!family_id || !attraction || !num_of_children || !meetup_time || !meetup_date || !message)  {
+    const {
+        family_id,
+        attraction,
+        num_of_children,
+        meetup_time,
+        meetup_date,
+        message
+    } = req.body
+    if (!family_id || !attraction || !num_of_children || !meetup_time || !meetup_date || !message) {
         res
             .status(400)
             .json({ message: "Please provide missing information" });

@@ -95,9 +95,9 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Listing of posts by family
-router.get('/:username/post', async(req, res) => {
+router.get('/:id/post', async(req, res) => {
     try {
-        const familyPosts = await familyDb.getFamilyPosts(req.params.username);
+        const familyPosts = await familyDb.getFamilyPosts(req.params.id);
         if (familyPosts) {
             res
                 .json(familyPosts);

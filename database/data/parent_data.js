@@ -1,7 +1,6 @@
-module.exports = [
-    { 
-        username: "parent1", 
-        password: "pass1",
+module.exports = [{
+        username: " ",
+        password: " ",
     }
 
 ];

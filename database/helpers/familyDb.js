@@ -25,11 +25,11 @@ function getById(id) {
         .first();
 }
 
-function getFamilyPosts(username) {
+function getFamilyPosts(familyId) {
     return db('posts as p')
-        .join('family as f', 'f.username', 'p.family_username')
+        .join('family as f', 'f.id', 'p.family_id')
         .select('p.id', 'p.text', 'f.username as postedBy')
-        .where('p.family_username', username);
+        .where('p.family_id', familyId);
 }
 
 function add(user) {
