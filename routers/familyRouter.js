@@ -12,12 +12,11 @@ const auth = require('../auth/checkAuth');
 router.get('/', async(req, res) => {
     try {
         const families = await familyDb.get();
-        if(families) {
+        if (families) {
             res
                 .json(families);
         }
-    } 
-    catch (err) {
+    } catch (err) {
         res
             .status(500)
             .json({ err: "A listing of families cannot be retreived at this time." });
@@ -25,55 +24,29 @@ router.get('/', async(req, res) => {
 });
 
 // Gets a family by username
-router.get('/:id', async(req, res) => {
+/*router.get('/:id', async(req, res) => {
     familyDb
         .getById(req.params.id)
         .then(user => {
             if (user) {
                 res
                     .json(user);
-            }
-            else {
+            } else {
                 res
                     .status(404)
                     .json({ message: "A family with that username does not exist." });
-            }  
-        })
-        .catch (err => 
-            res
-                .status(500)
-                .json({ err: "User information cannot be retreived at this time.", err })
-        );
-});
-
-// Updates a family account
-router.put('/:id', (req, res) => {
-    const id = req.params.id;
-    const updatedFamily = req.body;
-
-    familyDb
-        .update(id, updatedFamily)
-        .then(family => {
-            if(family) {
-                res
-                    .json({ message: "Your account has been updated!" });
-            }
-            else {
-                res
-                    .status(404)
-                    .json({ message: "Family with specified id not found." });
             }
         })
-        .catch (err => 
+        .catch(err =>
             res
-                .status(500)
-                .json({ message: "Account update failed." })
+            .status(500)
+            .json({ err: "User information cannot be retreived at this time.", err })
         );
-});
+});*/
 
 
 // Deletes a family account
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async(req, res) => {
     let user = req.body;
 
     try {
@@ -81,8 +54,7 @@ router.delete('/:id', async (req, res) => {
         if (family) {
             res
                 .json({ message: `Sorry to see you go ${user.username} family!` });
-        } 
-        else {
+        } else {
             res
                 .status(404)
                 .json({ message: 'The family with specified username does not exist.' });
@@ -95,9 +67,10 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Listing of posts by family
-router.get('/:id/post', async(req, res) => {
+router.get('/:id', async(req, res) => {
     try {
-        const familyPosts = await familyDb.getFamilyPosts(req.params.id);
+        const familyPosts = await postDb.getPostsByFamily(req.params.id);
+        console.log(familyPosts);
         if (familyPosts) {
             res
                 .json(familyPosts);
