@@ -1,7 +1,7 @@
 module.exports = [{
-    post_id: "Looking for teenagers between 14 and 16 to ride with my 15yo twins",
+    post_id: "Need a tween to ride withmy 13 yo",
     username: "boy_mom",
-    comment: "I have 15yo twin boys! We'd love to join you",
+    comment: "I have 13 yo twin boys! We'd love to join you",
     created_at: "5/3/2019",
     updated_at: "5/3/2019"
 }];

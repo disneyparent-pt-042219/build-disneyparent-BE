@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
     return knex.schema
         .createTable('comments', function(comments) {
@@ -25,5 +24,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  
+
 };

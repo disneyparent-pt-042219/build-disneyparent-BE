@@ -37,7 +37,7 @@ function getPostComment(id) {
 function getPostByFamily(familyId) {
     return db('posts')
         .select(
-            'id', 
+            'id',
             'attraction',
             'num_of_children',
             'meetup_time',

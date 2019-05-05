@@ -18,7 +18,7 @@ router.post('/', async(req, res) => {
     try {
         const comments = await commentDb.add(req.body);
         res
-            .json(posts);
+            .json(comments);
     } catch (err) {
         res
             .status(500)

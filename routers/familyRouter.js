@@ -68,12 +68,16 @@ router.delete('/:id', async(req, res) => {
 
 // Listing of posts by family
 router.get('/:id', async(req, res) => {
+    let user = req.body
     try {
-        const familyPosts = await postDb.getPostsByFamily(req.params.id);
-        console.log(familyPosts);
-        if (familyPosts) {
-            res
-                .json(familyPosts);
+        const family = await familyDb.getById(req.params.id);
+        if (family) {
+            const post = await postDb.getPostByFamily(req.params.id)
+            if (post) {
+                res
+                    .json(post);
+            }
+
         } else {
             res
                 .status(400)

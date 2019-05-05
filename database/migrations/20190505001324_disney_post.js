@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
     return knex.schema
         .createTable('posts', function(posts) {
@@ -10,10 +9,10 @@ exports.up = function(knex, Promise) {
                 .notNullable()
                 .references('username')
                 .inTable('family');
-            
+
             posts
                 .text('attraction', 128)
-                .notNullable();    
+                .notNullable();
 
             posts
                 .integer('num_of_children')
@@ -22,7 +21,7 @@ exports.up = function(knex, Promise) {
             posts
                 .text('meetup_time')
                 .notNullable();
-            
+
             posts
                 .text('meetup_date')
                 .notNullable();
@@ -34,7 +33,7 @@ exports.up = function(knex, Promise) {
             posts
                 .timestamps(true, true);
         });
-            
+
 };
 
 exports.down = function(knex, Promise) {

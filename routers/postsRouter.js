@@ -18,10 +18,13 @@ router.get('/', async(req, res) => {
 // Gets listing by Id with comments
 router.get('/:id', async(req, res) => {
     try {
-        const posts = await postDb.getPostComment(req.params.id);
+        const posts = await postDb.getPost(req.params.id);
         if (posts) {
-            res
-                .json(posts);
+            const comments = await postDb.getPostComment(req.params.id);
+            if (comments) {
+                res
+                    .json(comments);
+            }
         } else {
             res
                 .status(404)
