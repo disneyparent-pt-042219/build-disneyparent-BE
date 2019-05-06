@@ -10,7 +10,7 @@ const server = express();
 
 configMiddleware(server);
 
-server.use('/', authRouter);
+server.use('/auth', authRouter);
 server.use('/families', familyRouter);
 server.use('/posts', postsRouter);
 server.use('/comments', commentRouter);
