@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
                 .integer('post_id')
                 .unsigned()
                 .notNullable()
-                .references('message')
+                .references('id')
                 .inTable('posts')
 
             comments
