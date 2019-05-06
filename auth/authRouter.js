@@ -17,12 +17,10 @@ router.post('/register', async(req, res) => {
     try {
         const fam = await db('family').insert(req.body);
         if (fam) {
-            const token = tokenService.generateToken(fam);
             res
                 .status(200)
                 .json({
-                    message: 'Welcome to Disney Parent!',
-                    token
+                    message: 'Welcome to Disney Parent!'
                 });
         } else {
             res
