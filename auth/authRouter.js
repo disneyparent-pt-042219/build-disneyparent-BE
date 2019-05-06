@@ -2,12 +2,13 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const db = require('../database/dbConfig');
 
+const restricted = require('./restricted');
 const tokenService = require('./tokenService.js');
 const family = require('../database/helpers/familyDb');
 
 
 // Adds new family to listing
-router.post('/register', async (req, res) => {
+router.post('/register', async(req, res) => {
     let user = req.body;
     const hash = bcrypt.hashSync(user.password, 10);
     user.password = hash;
@@ -19,18 +20,16 @@ router.post('/register', async (req, res) => {
             const token = tokenService.generateToken(fam);
             res
                 .status(200)
-                .json({ 
+                .json({
                     message: 'Welcome to Disney Parent!',
                     token
-                 }); 
-        }
-        else {
-            res 
+                });
+        } else {
+            res
                 .status(404)
                 .json(err);
         }
-    }
-    catch (err) {
+    } catch (err) {
         res
             .status(500)
             .json(err);
@@ -38,7 +37,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Logs into current family account
-router.post('/login', (req, res) => {
+router.post('/login', restricted, (req, res) => {
     let { username, password } = req.body;
 
     family

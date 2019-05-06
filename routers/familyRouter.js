@@ -10,7 +10,7 @@ const auth = require('../auth/checkAuth');
 
 
 // Gets listing of all families 
-router.get('/', async(req, res) => {
+router.get('/', restricted, auth('Family'), async(req, res) => {
     try {
         const families = await familyDb.get();
         if (families) {
@@ -24,30 +24,9 @@ router.get('/', async(req, res) => {
     }
 });
 
-// Gets a family by username
-/*router.get('/:id', async(req, res) => {
-    familyDb
-        .getById(req.params.id)
-        .then(user => {
-            if (user) {
-                res
-                    .json(user);
-            } else {
-                res
-                    .status(404)
-                    .json({ message: "A family with that username does not exist." });
-            }
-        })
-        .catch(err =>
-            res
-            .status(500)
-            .json({ err: "User information cannot be retreived at this time.", err })
-        );
-});*/
-
 
 // Deletes a family account
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', restricted, auth('Family'), async(req, res) => {
     let user = req.body;
 
     try {
@@ -68,7 +47,7 @@ router.delete('/:id', async(req, res) => {
 });
 
 // Listing of posts by family
-router.get('/:id', async(req, res) => {
+router.get('/:id', restricted, auth('Family'), async(req, res) => {
     res
     try {
         const family = await familyDb.getById(req.params.id);
