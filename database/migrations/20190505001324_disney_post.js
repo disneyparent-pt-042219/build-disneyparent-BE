@@ -17,7 +17,7 @@ exports.up = function(knex, Promise) {
                 .notNullable();
 
             posts
-                .integer('num_of_children')
+                .text('num_of_children')
                 .notNullable();
 
             posts
