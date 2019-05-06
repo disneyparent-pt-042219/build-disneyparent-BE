@@ -1,5 +1,4 @@
 // Update with your config settings.
-pg.defaults.ssl = true;
 
 module.exports = {
     development: {
