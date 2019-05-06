@@ -10,11 +10,12 @@ const auth = require('../auth/checkAuth');
 
 
 // Gets listing of all families 
-router.get('/', restricted, auth('Family'), async(req, res) => {
+router.get('/', async(req, res) => {
     try {
         const families = await familyDb.get();
         if (families) {
             res
+                .status(200)
                 .json(families);
         }
     } catch (err) {
