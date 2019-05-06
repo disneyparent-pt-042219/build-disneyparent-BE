@@ -28,10 +28,9 @@ function getPost(id) {
         .where('id', id);
 }
 
-function getPostComment(id) {
+function getPostComment(postId) {
     return db('comments')
-        .select('comment')
-        .where('post_id', id);
+        .where('post_id', postId);
 }
 
 function getPostByFamily(familyId) {

@@ -35,6 +35,8 @@ router.get('/:id', async(req, res) => {
             .status(500)
             .json({ err: "The post information cannot be retreived." });
     }
+
+
 });
 
 // Adds new family post

@@ -1,27 +1,32 @@
 const db = require('../dbConfig');
 
 module.exports = {
-    getByPostId,
+    get,
+    getComment,
     add,
     update,
     remove,
 };
 
-function getByPostId(postId) {
+function get() {
+    return db('comments');
+}
+
+function getComment(id) {
     return db('comments')
         .select(
             'id',
             'username',
             'comment'
         )
-        .where('post_id', postId);
+        .where('id', id);
 }
 
 function add(comment) {
     return db('comments')
         .insert(comment)
         .then(ids => {
-            return getById(ids[0]);
+            return getComment(ids[0]);
         });
 }
 
