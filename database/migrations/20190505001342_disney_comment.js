@@ -9,6 +9,8 @@ exports.up = function(knex, Promise) {
                 .notNullable()
                 .references('id')
                 .inTable('posts')
+                .onDelete("CASCADE")
+                .onUpdate("CASCADE");
 
             comments
                 .string('username')
@@ -24,5 +26,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-    return knex.schema.dropTableIfExists('comments');
+    return knex.schema.dropTableIfExists('comments')
 };

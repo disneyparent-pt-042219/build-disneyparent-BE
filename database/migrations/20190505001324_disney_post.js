@@ -8,7 +8,9 @@ exports.up = function(knex, Promise) {
                 .unsigned()
                 .notNullable()
                 .references('id')
-                .inTable('family');
+                .inTable('family')
+                .onDelete("CASCADE")
+                .onUpdate("CASCADE");
 
             posts
                 .text('attraction', 128)
