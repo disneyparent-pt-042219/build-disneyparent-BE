@@ -36,14 +36,6 @@ function getPostComment(id) {
 
 function getPostByFamily(familyId) {
     return db('posts')
-        .select(
-            'id',
-            'attraction',
-            'num_of_children',
-            'meetup_time',
-            'meetup_date',
-            'message',
-        )
         .where('family_id', familyId);
 }
 
@@ -51,7 +43,7 @@ function add(post) {
     return db('posts')
         .insert(post)
         .then(ids => {
-            return getById(ids[0]);
+            return getPost(ids[0]);
         });
 }
 

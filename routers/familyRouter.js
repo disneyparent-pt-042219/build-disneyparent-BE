@@ -4,6 +4,7 @@ const router = express.Router();
 const familyDb = require('../database/helpers/familyDb');
 const postDb = require('../database/helpers/postDb');
 
+const db = require("../database/dbConfig")
 const restricted = require('../auth/restricted');
 const auth = require('../auth/checkAuth');
 
@@ -68,9 +69,10 @@ router.delete('/:id', async(req, res) => {
 
 // Listing of posts by family
 router.get('/:id', async(req, res) => {
-    let user = req.body
+    res
     try {
         const family = await familyDb.getById(req.params.id);
+
         if (family) {
             const post = await postDb.getPostByFamily(req.params.id)
             if (post) {

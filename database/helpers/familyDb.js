@@ -19,7 +19,6 @@ function getBy(filter) {
 
 function getById(id) {
     return db('family')
-        .select('id', 'username')
         .where({ id })
         .first();
 }

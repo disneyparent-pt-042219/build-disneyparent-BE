@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
                 .integer('family_id')
                 .unsigned()
                 .notNullable()
-                .references('username')
+                .references('id')
                 .inTable('family');
 
             posts
